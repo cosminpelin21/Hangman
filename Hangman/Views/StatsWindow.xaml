@@ -1,0 +1,39 @@
+﻿<Window x:Class="Hangman.Views.StatsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Hangman.Views"
+        mc:Ignorable="d"
+        Title="StatsWindow" Height="450" Width="800">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="0,0,0,20">
+            <TextBlock Text="{Binding UserName, StringFormat='Statistici pentru: {0}'}" 
+                       FontSize="20" FontWeight="Bold" Foreground="#2C3E50"/>
+            <Separator Margin="0,10"/>
+            <UniformGrid Columns="2">
+                <TextBlock Text="Jocuri Jucate:" FontSize="14"/>
+                <TextBlock Text="{Binding TotalGames}" FontSize="14" FontWeight="Bold" HorizontalAlignment="Right"/>
+                <TextBlock Text="Jocuri Câștigate:" FontSize="14"/>
+                <TextBlock Text="{Binding TotalWins}" FontSize="14" FontWeight="Bold" HorizontalAlignment="Right" Foreground="Green"/>
+            </UniformGrid>
+        </StackPanel>
+
+        <TextBlock Grid.Row="1" Text="Victorii pe Categorii:" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,5"/>
+
+        <DataGrid Grid.Row="2" ItemsSource="{Binding CategoryWins}" 
+                  AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True"
+                  Background="White" RowBackground="#FAFAFA" AlternatingRowBackground="#EDF2F7">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Categorie" Binding="{Binding Key}" Width="*" />
+                <DataGridTextColumn Header="Victorii" Binding="{Binding Value}" Width="100" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
