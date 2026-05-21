@@ -38,3 +38,16 @@ This application is an implementation of the classic **Hangman** game, developed
 
 ## 🎓 Author
 **Name**: Pelin Cosmin
+
+## 📷 Screenshots
+![Select User]()
+![Game1]()
+![Game2]()
+
+## 🐛 Feedback & Bug Reports
+
+While I have thoroughly tested the application, I am sure there is always room for improvement.
+
+If you encounter any bugs, have suggestions for new features, or spot any issues, **I would greatly appreciate your feedback!** You can contribute by: **contacting me directly** at *cosminpelin21@gmail.com*.
+
+Your experience and insights are extremely valuable to me as I continue to learn and improve my development skills. Thank you!
