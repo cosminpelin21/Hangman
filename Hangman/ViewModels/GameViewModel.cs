@@ -301,6 +301,8 @@ namespace Hangman.ViewModels
                     bool isGuessed = HiddenWord.Contains(letterStr, StringComparison.OrdinalIgnoreCase);
                     Alphabet.Add(new AlphabetLetter { Letter = letterStr, IsActive = !isGuessed });
                 }
+                for (int x = 0; x < Mistakes; x++)
+                    MistakesCollection.Add("X");
 
                 UpdateHangmanImage();
                 _timer.Start();

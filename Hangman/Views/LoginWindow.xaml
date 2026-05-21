@@ -3,18 +3,44 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Hangman"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Hangman - Login" Height="450" Width="800" 
+        WindowStartupLocation="CenterScreen" Background="#2D2D30">
+
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Background" Value="#007ACC"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#1C8FDC"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Welcome to Hangman! Enjoy this game!" 
-                   FontSize="20" HorizontalAlignment="Center" Margin="10"/>
+        <TextBlock Text="Welcome to Hangman!" 
+                   FontSize="28" Foreground="White" FontWeight="Bold"
+                   HorizontalAlignment="Center" Margin="0,0,0,20"/>
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -24,22 +50,27 @@
 
             <ListBox ItemsSource="{Binding Users}" 
                      SelectedItem="{Binding SelectedUser}" 
-                     Margin="20" DisplayMemberPath="Name"/>
+                     Margin="0,0,20,0" DisplayMemberPath="Name" 
+                     Background="#3E3E42" Foreground="White" BorderThickness="0"
+                     FontSize="16" Padding="10"/>
 
-            <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                <Image Source="{Binding SelectedUser.ImagePath}" Height="150" Width="150"/>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                    <Button Content="«" Width="40" Margin="5" Command="{Binding PreviousUserCommand}"/>
-                    <Button Content="»" Width="40" Margin="5" Command="{Binding NextUserCommand}"/>
+            <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Border Width="160" Height="160" CornerRadius="80" Background="#3E3E42" VerticalAlignment="Center">
+                    <Image Source="{Binding SelectedUser.ImagePath}" Stretch="UniformToFill" Margin="5"/>
+                </Border>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
+                    <Button Content="«" Width="50" Height="30" Margin="5" Command="{Binding PreviousUserCommand}"/>
+                    <Button Content="»" Width="50" Height="30" Margin="5" Command="{Binding NextUserCommand}"/>
                 </StackPanel>
             </StackPanel>
         </Grid>
 
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="20">
-            <Button Content="New User" Command="{Binding AddUserCommand}" Width="100" Margin="10"/>
-            <Button Content="Delete User" Command="{Binding DeleteUserCommand}" Width="100" Margin="10"/>
-            <Button Content="Play" Command="{Binding PlayCommand}" Width="100" Margin="10"/>
-            <Button Content="Cancel" Command="{Binding CancelCommand}" Width="100" Margin="10"/>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
+            <Button Content="New User" Command="{Binding AddUserCommand}" Width="100" Margin="5"/>
+            <Button Content="Delete User" Command="{Binding DeleteUserCommand}" Width="100" Margin="5"/>
+            <Button Content="Play" Command="{Binding PlayCommand}" Width="100" Margin="5" Background="#28A745"/>
+            <Button Content="Cancel" Command="{Binding CancelCommand}" Width="100" Margin="5" Background="#DC3545"/>
         </StackPanel>
     </Grid>
 </Window>

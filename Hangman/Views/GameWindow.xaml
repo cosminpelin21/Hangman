@@ -3,60 +3,74 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Hangman.Views"
         mc:Ignorable="d"
-        Title="GameWindow" Height="600" Width="1000">
+        Title="Hangman Game" Height="600" Width="1000" 
+        Background="#2D2D30" Foreground="White">
+
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#3E3E42"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="#252526"/>
+                    <Setter Property="Foreground" Value="#666666"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#007ACC"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
     <DockPanel>
-        <Menu DockPanel.Dock="Top" FontSize="14" Padding="2">
-            <MenuItem Header="_File">
-                <MenuItem Header="_New Game" Command="{Binding NewGameCommand}"/>
-                <MenuItem Header="_Open Game" Command="{Binding OpenGameCommand}"/>
-                <MenuItem Header="_Save Game" Command="{Binding SaveGameCommand}"/>
-                <MenuItem Header="_Statistics" Command="{Binding ShowStatsCommand}"/>
+        <Menu DockPanel.Dock="Top" Background="#252526" Foreground="Black" Padding="5">
+            <MenuItem Header="_File" Foreground="White">
+                <MenuItem Header="_New Game" Command="{Binding NewGameCommand}" Foreground="Black"/>
+                <MenuItem Header="_Open Game" Command="{Binding OpenGameCommand}" Foreground="Black"/>
+                <MenuItem Header="_Save Game" Command="{Binding SaveGameCommand}" Foreground="Black"/>
+                <MenuItem Header="_Statistics" Command="{Binding ShowStatsCommand}" Foreground="Black"/>
                 <Separator/>
-                <MenuItem Header="_Exit"  Command="{Binding ExitCommand}"/>
+                <MenuItem Header="_Exit" Command="{Binding ExitCommand}" Foreground="Black"/>
             </MenuItem>
-            <MenuItem Header="_Categories">
-                <MenuItem Header="All categories" 
-              Command="{Binding ChangeCategoryCommand}" 
-              CommandParameter="All categories"/>
-                <MenuItem Header="Cars" 
-              Command="{Binding ChangeCategoryCommand}" 
-              CommandParameter="Cars"/>
-                <MenuItem Header="Countries" 
-              Command="{Binding ChangeCategoryCommand}" 
-              CommandParameter="Countries"/>
-                <MenuItem Header="Rivers" 
-              Command="{Binding ChangeCategoryCommand}" 
-              CommandParameter="Rivers"/>
-            </MenuItem>
-            <MenuItem Header="_Help">
-                <MenuItem Header="_About" Command="{Binding AboutCommand}"/>
+            <MenuItem Header="_Categories" Foreground="White">
+                <MenuItem Header="All categories" Command="{Binding ChangeCategoryCommand}" CommandParameter="All categories" Foreground="Black"/>
+                <MenuItem Header="Cars" Command="{Binding ChangeCategoryCommand}" CommandParameter="Cars" Foreground="Black"/>
+                <MenuItem Header="Countries" Command="{Binding ChangeCategoryCommand}" CommandParameter="Countries" Foreground="Black"/>
+                <MenuItem Header="Rivers" Command="{Binding ChangeCategoryCommand}" CommandParameter="Rivers" Foreground="Black"/>
             </MenuItem>
         </Menu>
 
-        <StatusBar DockPanel.Dock="Bottom" Background="#f0f0f0">
-            <StatusBarItem>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Level: " FontWeight="Bold"/>
-                    <TextBlock Text="{Binding CurrentLevel}"/>
-                </StackPanel>
-            </StatusBarItem>
+        <StatusBar DockPanel.Dock="Bottom" Background="#1E1E1E" Foreground="#CCCCCC" Padding="5">
+            <StatusBarItem Content="{Binding CurrentLevel, StringFormat='Level: {0}'}" FontWeight="Bold"/>
             <Separator/>
             <StatusBarItem>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Time left: " FontWeight="Bold"/>
-                    <TextBlock Text="{Binding SecondsLeft}" Foreground="Red"/>
-                    <TextBlock Text=" seconds"/>
+                    <TextBlock Text="Time left: "/>
+                    <TextBlock Text="{Binding SecondsLeft}" Foreground="#FF4444" FontWeight="Bold"/>
+                    <TextBlock Text="s"/>
                 </StackPanel>
             </StatusBarItem>
         </StatusBar>
 
-        <Border DockPanel.Dock="Left" Width="350" BorderBrush="Gray" BorderThickness="0,0,1,0" Margin="10">
+        <Border DockPanel.Dock="Left" Width="300" BorderBrush="#3E3E42" BorderThickness="0,0,1,0" Margin="10">
             <StackPanel VerticalAlignment="Center">
-                <Image Source="{Binding CurrentHangmanImage}" Stretch="Uniform" Height="300"/>
-                <TextBlock Text="{Binding UserName}" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold" Margin="0,10,0,0"/>
-                <Image Source="{Binding UserLogo}" Width="60" Height="60"/>
+                <Image Source="{Binding CurrentHangmanImage}" Stretch="Uniform" Height="250" Margin="0,0,0,20"/>
+                <Border Width="80" Height="80" CornerRadius="40" Background="#3E3E42" Margin="0,10">
+                    <Image Source="{Binding UserLogo}" Stretch="UniformToFill" Margin="5"/>
+                </Border>
+                <TextBlock Text="{Binding UserName}" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold" Foreground="#007ACC"/>
             </StackPanel>
         </Border>
 
@@ -67,8 +81,8 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                <TextBlock Text="Mistakes: " FontSize="16" VerticalAlignment="Center"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Text="Mistakes: " FontSize="16" VerticalAlignment="Center" Foreground="#AAAAAA"/>
                 <ItemsControl ItemsSource="{Binding MistakesCollection}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -77,40 +91,31 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text=" X " Foreground="Red" FontSize="20" FontWeight="Bold" Margin="2"/>
+                            <TextBlock Text="X" Foreground="#FF4444" FontSize="20" FontWeight="Bold" Margin="5,0"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </StackPanel>
 
-            <ItemsControl Grid.Row="1" ItemsSource="{Binding Alphabet}" Margin="0,20">
+            <ItemsControl Grid.Row="1" ItemsSource="{Binding Alphabet}" Margin="0,20" VerticalAlignment="Center">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <WrapPanel HorizontalAlignment="Center"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button Content="{Binding Letter}" 
-                                Width="40" Height="40" Margin="5"
+                        <Button Content="{Binding Letter}" Width="45" Height="45" Margin="3"
                                 Command="{Binding DataContext.GuessLetterCommand, RelativeSource={RelativeSource AncestorType=Window}}"
                                 CommandParameter="{Binding Letter}"
                                 IsEnabled="{Binding IsActive}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-
-            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20">
-                <TextBlock Text="{Binding CurrentCategory}" 
-               FontSize="24" 
-               FontWeight="Bold" 
-               Foreground="DarkBlue" 
-               Margin="0,0,20,0"/>
-                <TextBlock Text="{Binding HiddenWord}" 
-           FontSize="32" 
-           FontWeight="Bold" 
-           FontFamily="Courier New"
-           TextOptions.TextFormattingMode="Display"/>
+            
+            <StackPanel Grid.Row="2" HorizontalAlignment="Center">
+                <TextBlock Text="{Binding CurrentCategory}" Foreground="#007ACC" FontWeight="Bold" Margin="0,0,0,5"/>
+                <TextBlock Text="{Binding HiddenWord}" FontSize="40" FontWeight="Bold" FontFamily="Consolas" Foreground="White"/>
             </StackPanel>
         </Grid>
     </DockPanel>
