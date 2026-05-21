@@ -55,9 +55,16 @@
                      FontSize="16" Padding="10"/>
 
             <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <Border Width="160" Height="160" CornerRadius="80" Background="#3E3E42" VerticalAlignment="Center">
-                    <Image Source="{Binding SelectedUser.ImagePath}" Stretch="UniformToFill" Margin="5"/>
-                </Border>
+                <Ellipse Width="200" Height="200" 
+                        Stretch="UniformToFill" 
+                        StrokeThickness="0">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="{Binding SelectedUser.ImagePath}" 
+                        Stretch="UniformToFill" 
+                        AlignmentX="Center" 
+                        AlignmentY="Center"/>
+                    </Ellipse.Fill>
+                </Ellipse>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
                     <Button Content="«" Width="50" Height="30" Margin="5" Command="{Binding PreviousUserCommand}"/>
