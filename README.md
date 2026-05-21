@@ -40,9 +40,9 @@ This application is an implementation of the classic **Hangman** game, developed
 **Name**: Pelin Cosmin
 
 ## 📷 Screenshots
-![Select User]()
-![Game1]()
-![Game2]()
+![Select User](images/SelectUser.png)
+![Game1](images/Game1.png)
+![Game2](images/Game2.png)
 
 ## 🐛 Feedback & Bug Reports
 
